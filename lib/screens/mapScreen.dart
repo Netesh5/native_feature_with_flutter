@@ -40,8 +40,14 @@ class _mapScreenState extends State<mapScreen> {
               double lng = currentPosition!.longitude;
               double lat = currentPosition.latitude;
               CameraPosition targetPosition = CameraPosition(
-                  target: LatLng(value.lat!, value.lng!), zoom: 16.0);
+                  target: LatLng(value.lat!, value.lng!), zoom: 17.0);
               getLocation(targetPosition);
+              marker.clear();
+              marker.add(Marker(
+                  markerId: const MarkerId('currentPosition'),
+                  infoWindow: const InfoWindow(title: "your location"),
+                  position: LatLng(value.lat!, value.lng!)));
+              setState(() {});
             },
             icon: const Icon(Icons.location_on),
             label: const Text("Get my location"),
@@ -60,6 +66,7 @@ class _mapScreenState extends State<mapScreen> {
           markers: marker,
           mapType: MapType.normal,
           zoomGesturesEnabled: true,
+          trafficEnabled: true,
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
           },
