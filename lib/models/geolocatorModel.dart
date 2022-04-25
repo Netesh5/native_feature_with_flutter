@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
+int? a;
+
 class geoLocator with ChangeNotifier {
   String longitude = "";
   String latitude = "";
-  double lng = 0;
-  double lat = 0;
+  double? lng;
+  double? lat;
 
-  void getCurrentLocation() async {
+  Future<Position?> getCurrentLocation() async {
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied ||
         permission == LocationPermission.deniedForever) {
@@ -20,7 +22,9 @@ class geoLocator with ChangeNotifier {
       latitude = currentPosition.latitude.toString();
       lng = currentPosition.longitude;
       lat = currentPosition.latitude;
+      debugPrint(lng.toString());
       notifyListeners();
+      return currentPosition;
     }
   }
 }

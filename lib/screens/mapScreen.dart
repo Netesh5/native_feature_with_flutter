@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:native_feature/models/geolocatorModel.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +16,7 @@ class _mapScreenState extends State<mapScreen> {
   Completer<GoogleMapController> _controller = Completer();
 
   geoLocator locator = geoLocator();
-  double? latitude;
-  double? longitude;
+
   static const CameraPosition initialPositon = CameraPosition(
       target: LatLng(37.42796133580664, -122.085749655962), zoom: 14.0);
 
@@ -35,9 +35,12 @@ class _mapScreenState extends State<mapScreen> {
       child: Scaffold(
         floatingActionButton: Consumer<geoLocator>(
           builder: (context, value, child) => FloatingActionButton.extended(
-            onPressed: () {
+            onPressed: () async {
+              Position? currentPosition = await value.getCurrentLocation();
+              double lng = currentPosition!.longitude;
+              double lat = currentPosition.latitude;
               CameraPosition targetPosition = CameraPosition(
-                  target: LatLng(value.lat, value.lng), zoom: 14.0);
+                  target: LatLng(value.lat!, value.lng!), zoom: 16.0);
               getLocation(targetPosition);
             },
             icon: const Icon(Icons.location_on),
