@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:native_feature/Services/CameraService/cameraScreen.dart';
-import 'package:native_feature/Services/MapHomepage.dart';
+import 'package:native_feature/Services/MapService/MapHomepage.dart';
 
 class HomePage extends StatelessWidget {
   Color darkthemeColor = Color(0XFF121212);
