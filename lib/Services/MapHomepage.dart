@@ -1,11 +1,9 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:native_feature/models/geolocatorModel.dart';
-import 'package:native_feature/screens/cameraScreen.dart';
-import 'package:native_feature/screens/mapScreen.dart';
+import 'package:native_feature/Services/MapService/mapScreen.dart';
 import 'package:provider/provider.dart';
 
-class Homepage extends StatelessWidget {
+class mapHomepage extends StatelessWidget {
   Color darkthemeColor = Color(0XFF121212);
 
   geoLocator _locator = geoLocator();
@@ -68,16 +66,7 @@ class Homepage extends StatelessWidget {
                     child: const Text("Show in map")),
                 const SizedBox(
                   height: 20,
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      availableCameras().then((value) => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  cameraScreen(camera: value))));
-                    },
-                    child: const Text("Open camera"))
+                )
               ],
             ),
           ),

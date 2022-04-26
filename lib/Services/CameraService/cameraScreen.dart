@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:native_feature/screens/gallaryScreen.dart';
+import 'package:native_feature/Services/CameraService/gallaryScreen.dart';
 
 class cameraScreen extends StatefulWidget {
   List<CameraDescription>? camera;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/homepage.dart';
+import 'package:native_feature/Homepage.dart';
 
 void main() {
   runApp(Myapp());
@@ -13,7 +13,7 @@ class Myapp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(fontFamily: "ubuntu"),
       debugShowCheckedModeBanner: false,
-      home: Homepage(),
+      home: HomePage(),
     );
   }
 }
