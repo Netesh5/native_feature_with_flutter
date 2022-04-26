@@ -20,7 +20,7 @@ class _mapScreenState extends State<mapScreen> {
       target: LatLng(37.42796133580664, -122.085749655962), zoom: 14.0);
 
   Set<Marker> marker = {};
-
+  Set<Polyline> polyline = {};
   @override
   void dispose() {
     _controller;
@@ -33,11 +33,12 @@ class _mapScreenState extends State<mapScreen> {
       create: (context) => geoLocator(),
       child: Scaffold(
         floatingActionButton: Consumer<geoLocator>(
-          builder: (context, value, child) => FloatingActionButton.extended(
+          builder: (context, value, child) => FloatingActionButton(
+            backgroundColor: Colors.white,
             onPressed: () async {
               Position? currentPosition = await value.getCurrentLocation();
-              double lng = currentPosition!.longitude;
-              double lat = currentPosition.latitude;
+              // double lng = currentPosition.longitude;
+              // double lat = currentPosition.latitude;
               CameraPosition targetPosition = CameraPosition(
                   target: LatLng(value.lat!, value.lng!), zoom: 17.0);
               getLocation(targetPosition);
@@ -46,10 +47,28 @@ class _mapScreenState extends State<mapScreen> {
                   markerId: const MarkerId('currentPosition'),
                   infoWindow: const InfoWindow(title: "your location"),
                   position: LatLng(value.lat!, value.lng!)));
+              marker.add(
+                Marker(
+                    markerId: const MarkerId('destinationPosition'),
+                    infoWindow: const InfoWindow(title: "desination loaction"),
+                    position:
+                        const LatLng(37.42796133580664, -122.085749655962),
+                    icon: BitmapDescriptor.defaultMarkerWithHue(
+                        BitmapDescriptor.hueBlue)),
+              );
+              polyline = {
+                Polyline(polylineId: const PolylineId('polyline'), points: [
+                  //LatLng(value.lat!, value.lng!),
+                  const LatLng(37.42796133580664, -122.085749655962),
+                  LatLng(value.lat!, value.lng!),
+                ])
+              };
               setState(() {});
             },
-            icon: const Icon(Icons.location_on),
-            label: const Text("Get my location"),
+            child: const Icon(
+              Icons.gps_fixed,
+              color: Colors.black,
+            ),
           ),
         ),
         appBar: AppBar(
@@ -64,8 +83,9 @@ class _mapScreenState extends State<mapScreen> {
           initialCameraPosition: initialPositon,
           markers: marker,
           mapType: MapType.normal,
-          zoomGesturesEnabled: true,
-          trafficEnabled: true,
+          //zoomGesturesEnabled: true,
+          //trafficEnabled: true,
+          polylines: polyline,
           onMapCreated: (GoogleMapController controller) {
             _controller.complete(controller);
           },
